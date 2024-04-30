@@ -5,12 +5,16 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Period;
+
 
 @Data
+@Builder
 public class Users {
 
     @Valid
@@ -31,11 +35,13 @@ public class Users {
     @NotNull(message = "Please write date birthday")
     @NotBlank(message = "Please write date birthday")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date data;
+    private LocalDate dateOfBirth;
 
     private String adress;
     private String phone;
 
-
+    public int getAge() {
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
+    }
 
 }
