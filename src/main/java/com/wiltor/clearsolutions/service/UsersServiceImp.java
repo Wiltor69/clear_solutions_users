@@ -1,5 +1,7 @@
 package com.wiltor.clearsolutions.service;
 
+import com.wiltor.clearsolutions.exceptions.UserNotFoundException;
+import com.wiltor.clearsolutions.exceptions.UserUpdateException;
 import com.wiltor.clearsolutions.model.Users;
 import com.wiltor.clearsolutions.repo.UsersRepo;
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ public class UsersServiceImp implements UsersService{
     }
 
     @Override
-    public List<Users> findAllYear(Integer firstYear, Integer secondYear) {
+    public List<Users> findAllYear(Integer firstYear, Integer secondYear) throws UserNotFoundException{
         return repository.findAllYear(firstYear, secondYear);
     }
 
@@ -28,12 +30,12 @@ public class UsersServiceImp implements UsersService{
     }
 
     @Override
-    public Users updateUser(Users users) {
+    public Users updateUser(Users users) throws UserUpdateException {
         return repository.updateUser(users);
     }
 
     @Override
-    public void deleteUser(String email) {
+    public void deleteUser(String email) throws UserNotFoundException {
         repository.deleteUser(email);
     }
 }

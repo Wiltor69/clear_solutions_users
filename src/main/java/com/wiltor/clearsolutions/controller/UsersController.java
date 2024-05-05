@@ -2,6 +2,8 @@ package com.wiltor.clearsolutions.controller;
 
 
 
+import com.wiltor.clearsolutions.exceptions.UserNotFoundException;
+import com.wiltor.clearsolutions.exceptions.UserUpdateException;
 import com.wiltor.clearsolutions.model.Users;
 import com.wiltor.clearsolutions.service.UsersService;
 import lombok.AllArgsConstructor;
@@ -20,7 +22,7 @@ public class UsersController {
         return service.findAllUsers();
     }
     @GetMapping("/users/{x}/{y}")
-    public List<Users>findAllYear(@PathVariable Integer x, @PathVariable Integer y){
+    public List<Users>findAllYear(@PathVariable Integer x, @PathVariable Integer y) throws UserNotFoundException {
         return service.findAllYear(x,y);
     }
     @PostMapping("/sign")
@@ -33,11 +35,11 @@ public class UsersController {
         }
     }
     @PutMapping("/users/update")
-    public Users updateUser(@RequestBody Users user){
+    public Users updateUser(@RequestBody Users user) throws UserUpdateException {
         return service.updateUser(user);
     }
     @DeleteMapping("/users/delete/{email}")
-    public void deleteUser(@PathVariable String email){
+    public void deleteUser(@PathVariable String email) throws UserNotFoundException{
         service.deleteUser(email);
     }
 
